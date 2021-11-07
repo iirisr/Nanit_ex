@@ -9,21 +9,23 @@
 /* Begin PBXBuildFile section */
 		036EB9A62737FF6E00CA03FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036EB9A52737FF6E00CA03FE /* AppDelegate.swift */; };
 		036EB9A82737FF6E00CA03FE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036EB9A72737FF6E00CA03FE /* SceneDelegate.swift */; };
-		036EB9AA2737FF6E00CA03FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036EB9A92737FF6E00CA03FE /* ViewController.swift */; };
 		036EB9AD2737FF6E00CA03FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 036EB9AB2737FF6E00CA03FE /* Main.storyboard */; };
 		036EB9AF2737FF7100CA03FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 036EB9AE2737FF7100CA03FE /* Assets.xcassets */; };
 		036EB9B22737FF7100CA03FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 036EB9B02737FF7100CA03FE /* LaunchScreen.storyboard */; };
+		036EB9BA273800DB00CA03FE /* DetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036EB9B9273800DB00CA03FE /* DetailsVC.swift */; };
+		036EB9BC2738079F00CA03FE /* UserDefaultsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036EB9BB2738079F00CA03FE /* UserDefaultsUtil.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		036EB9A22737FF6E00CA03FE /* Nanit_ex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nanit_ex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		036EB9A52737FF6E00CA03FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		036EB9A72737FF6E00CA03FE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		036EB9A92737FF6E00CA03FE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		036EB9AC2737FF6E00CA03FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		036EB9AE2737FF7100CA03FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		036EB9B12737FF7100CA03FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		036EB9B32737FF7100CA03FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		036EB9B9273800DB00CA03FE /* DetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsVC.swift; sourceTree = "<group>"; };
+		036EB9BB2738079F00CA03FE /* UserDefaultsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +60,12 @@
 			children = (
 				036EB9A52737FF6E00CA03FE /* AppDelegate.swift */,
 				036EB9A72737FF6E00CA03FE /* SceneDelegate.swift */,
-				036EB9A92737FF6E00CA03FE /* ViewController.swift */,
 				036EB9AB2737FF6E00CA03FE /* Main.storyboard */,
 				036EB9AE2737FF7100CA03FE /* Assets.xcassets */,
 				036EB9B02737FF7100CA03FE /* LaunchScreen.storyboard */,
 				036EB9B32737FF7100CA03FE /* Info.plist */,
+				036EB9B9273800DB00CA03FE /* DetailsVC.swift */,
+				036EB9BB2738079F00CA03FE /* UserDefaultsUtil.swift */,
 			);
 			path = Nanit_ex;
 			sourceTree = "<group>";
@@ -137,7 +140,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				036EB9AA2737FF6E00CA03FE /* ViewController.swift in Sources */,
+				036EB9BC2738079F00CA03FE /* UserDefaultsUtil.swift in Sources */,
+				036EB9BA273800DB00CA03FE /* DetailsVC.swift in Sources */,
 				036EB9A62737FF6E00CA03FE /* AppDelegate.swift in Sources */,
 				036EB9A82737FF6E00CA03FE /* SceneDelegate.swift in Sources */,
 			);
@@ -287,6 +291,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 238EA7P2TP;
 				INFOPLIST_FILE = Nanit_ex/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -305,6 +310,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 238EA7P2TP;
 				INFOPLIST_FILE = Nanit_ex/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

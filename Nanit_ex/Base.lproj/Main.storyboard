@@ -1,24 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--DetailsVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="DetailsVC" customModule="Nanit_ex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Birthday App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="orQ-Li-da2" userLabel="AppTitleLabel">
+                                <rect key="frame" x="62" y="100" width="290" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" name="AccentColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="center" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="nIs-MU-J4L" userLabel="NameTextField">
+                                <rect key="frame" x="103.5" y="154" width="207" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8f-bg-K3L">
+                                <rect key="frame" x="104" y="208" width="207" height="216"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <date key="date" timeIntervalSinceReferenceDate="599522400.38135302">
+                                    <!--2019-12-31 22:00:00 +0000-->
+                                </date>
+                            </datePicker>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qvp-zM-59p" userLabel="PictureImageView">
+                                <rect key="frame" x="103.5" y="444" width="207" height="207"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Qvp-zM-59p" secondAttribute="height" id="qfh-YU-zPJ"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKI-eI-0YI" userLabel="PlusButton">
+                                <rect key="frame" x="103.5" y="444" width="207" height="207"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="+">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="pickAPicturePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GZm-Xb-QcW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="nQa-Oq-mfm" userLabel="ShowBirthdayScreenButton">
+                                <rect key="frame" x="103.5" y="691" width="207" height="34"/>
+                                <color key="backgroundColor" red="0.110264957" green="0.59210634230000003" blue="0.99854695800000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Show birthday screen">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="showBirthdayScreenPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6md-OH-5ss"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="i8f-bg-K3L" firstAttribute="top" secondItem="nIs-MU-J4L" secondAttribute="bottom" constant="20" id="03V-Vs-Mpw"/>
+                            <constraint firstItem="gKI-eI-0YI" firstAttribute="bottom" secondItem="Qvp-zM-59p" secondAttribute="bottom" id="2VT-7R-kEq"/>
+                            <constraint firstItem="nQa-Oq-mfm" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="3u3-D5-H5P"/>
+                            <constraint firstItem="orQ-Li-da2" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="7:10" id="6WR-xg-D1L"/>
+                            <constraint firstItem="orQ-Li-da2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="56" id="7t4-Iv-zp4" userLabel="AppTitleLabel.top = Safe Area.top + 30"/>
+                            <constraint firstItem="i8f-bg-K3L" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Bql-J7-C5w"/>
+                            <constraint firstItem="nIs-MU-J4L" firstAttribute="top" secondItem="orQ-Li-da2" secondAttribute="bottom" constant="30" id="Hnw-Rf-U7h"/>
+                            <constraint firstItem="i8f-bg-K3L" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="1:2" id="QeO-2Z-B7s"/>
+                            <constraint firstItem="nIs-MU-J4L" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="SnZ-cY-CrE"/>
+                            <constraint firstItem="Qvp-zM-59p" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="aSH-pJ-ARY"/>
+                            <constraint firstItem="orQ-Li-da2" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="brZ-Pn-DCu"/>
+                            <constraint firstItem="Qvp-zM-59p" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="1:2" id="cDv-PT-NL6"/>
+                            <constraint firstItem="nIs-MU-J4L" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="1:2" id="ded-OZ-Chb"/>
+                            <constraint firstItem="nQa-Oq-mfm" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="1:2" id="eEb-EH-xGa"/>
+                            <constraint firstItem="gKI-eI-0YI" firstAttribute="leading" secondItem="Qvp-zM-59p" secondAttribute="leading" id="fhS-IH-S4U"/>
+                            <constraint firstItem="gKI-eI-0YI" firstAttribute="trailing" secondItem="Qvp-zM-59p" secondAttribute="trailing" id="h4W-nv-GJ0"/>
+                            <constraint firstItem="Qvp-zM-59p" firstAttribute="top" secondItem="i8f-bg-K3L" secondAttribute="bottom" constant="20" id="r6x-98-ogE"/>
+                            <constraint firstItem="gKI-eI-0YI" firstAttribute="top" secondItem="Qvp-zM-59p" secondAttribute="top" id="vZw-gE-KSW"/>
+                            <constraint firstItem="nQa-Oq-mfm" firstAttribute="top" secondItem="Qvp-zM-59p" secondAttribute="bottom" constant="40" id="vas-pa-cNQ"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="appTitleLabel" destination="orQ-Li-da2" id="Bfj-kO-rQJ"/>
+                        <outlet property="birthdayDatePicker" destination="i8f-bg-K3L" id="E7E-JA-nks"/>
+                        <outlet property="nameTextField" destination="nIs-MU-J4L" id="s7u-QG-IhV"/>
+                        <outlet property="pictureImageView" destination="Qvp-zM-59p" id="Qkh-Pe-mFP"/>
+                        <outlet property="showBirthdayButton" destination="nQa-Oq-mfm" id="cuR-Zt-RFM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-104.34782608695653" y="88.392857142857139"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
