@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ShowBirthdayVC: UIViewController {
+class ShowBirthdayVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: Outlets
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -30,9 +30,12 @@ class ShowBirthdayVC: UIViewController {
     var birthDate: Date?
     weak var picture: UIImage?
     
+    private var imagePicker = UIImagePickerController()
+    private let cameraButton = UIButton()
+    
     private var mainTheme = MainTheme.Elephant
     
-    var babyAgeNumber: Int?
+    private var babyAgeNumber: Int?
     
     private let backgroundColors: [MainTheme : UIColor]  = [
         MainTheme.Fox : .paleTeal,
@@ -112,6 +115,8 @@ class ShowBirthdayVC: UIViewController {
     let nanitBottom: CGFloat = 20
     let nanitTop: CGFloat = 15
     
+    let cameraButtonWidth: CGFloat = 36
+    
     
     enum MainTheme: Int {
         case Fox, Elephant, Pelican
@@ -125,15 +130,22 @@ class ShowBirthdayVC: UIViewController {
             navigationController?.popViewController(animated: true)
         }
         
+        imagePicker.delegate = self
+        
         mainTheme = MainTheme(rawValue: Int.random(in: 0..<3)) ?? MainTheme.Elephant
         view.backgroundColor = backgroundColors[mainTheme]
+        
+        babyImageView.addSubview(cameraButton)
         
         view.sendSubviewToBack(backgroundImageView)
         nameView.bringSubviewToFront(nameLabel)
         nameView.bringSubviewToFront(ageImageView)
+        babyView.sendSubviewToBack(babyPlaceHolderImageView)
         babyView.bringSubviewToFront(babyImageView)
+        babyImageView.bringSubviewToFront(cameraButton)
         
         backButton.addTarget(self, action: #selector(self.backAction), for: .touchUpInside)
+        cameraButton.addTarget(self, action: #selector(self.pickAPicturePressed), for: .touchUpInside)
         
         nameLabel.text = "TODAY " + name! + " IS"
         nameLabel.textColor = .darkGreyBlue
@@ -145,9 +157,16 @@ class ShowBirthdayVC: UIViewController {
         shareButton.backgroundColor = .blush
         
         backgroundImageView.image = backgroundImages[mainTheme]
-        backgroundImageView.contentMode = .scaleAspectFill
+        babyImageView.contentMode = .scaleAspectFill
         babyImageView.image = picture
         babyPlaceHolderImageView.image = babyPlaceHolderImages[mainTheme]
+        cameraButton.setImage(cameraImages[mainTheme], for: .normal)
+        cameraButton.isUserInteractionEnabled = true
+        view.clipsToBounds = true
+        babyView.clipsToBounds = true
+        babyImageView.clipsToBounds = true
+        cameraButton.clipsToBounds = true
+        babyPlaceHolderImageView.clipsToBounds = true
         
         if let date = birthDate,
            let (ageNumber, ageDescription) = calculateAge(for: date) {
@@ -254,11 +273,27 @@ class ShowBirthdayVC: UIViewController {
         babyImageView.widthAnchor.constraint(equalToConstant: calcSize(babyImageViewHeight, isWidth: false)).isActive = true
         babyImageView.heightAnchor.constraint(equalToConstant: calcSize(babyImageViewHeight, isWidth: false)).isActive = true
         
+        cameraButton.translatesAutoresizingMaskIntoConstraints = false
+        cameraButton.widthAnchor.constraint(equalToConstant: calcSize(cameraButtonWidth, isWidth: false)).isActive = true
+        cameraButton.heightAnchor.constraint(equalToConstant: calcSize(cameraButtonWidth, isWidth: false)).isActive = true
+        let (hMult, vMult) = computeMultipliers(angle: 45)
+        NSLayoutConstraint(item: cameraButton, attribute: .centerX, relatedBy: .equal, toItem: babyImageView!, attribute: .trailing, multiplier: hMult, constant: 0).isActive = true
+        NSLayoutConstraint(item: cameraButton, attribute: .centerY, relatedBy: .equal, toItem: babyImageView!, attribute: .bottom, multiplier: vMult, constant: 0).isActive = true
         
         shareButton.layer.cornerRadius = calcSize(shareButtonRadius, isWidth: true)
         babyImageView.layer.cornerRadius = calcSize(babyImageViewHeight, isWidth: false)/2
+        babyImageView.layoutIfNeeded()
+        cameraButton.layoutIfNeeded()
     }
     
+    private func computeMultipliers(angle: CGFloat) -> (CGFloat, CGFloat) {
+        let radians = angle * .pi / 180
+            
+        let h = (1.0 + cos(radians)) / 2
+        let v = (1.0 - sin(radians)) / 2
+            
+        return (h, v)
+    }
     
     // MARK: Actions
     private func calculateAge(for date: Date)->(Int, String)? {
@@ -284,11 +319,69 @@ class ShowBirthdayVC: UIViewController {
         return false
     }
     
+    @objc func cameraAction(_ sender: UIButton) {
+        print("cameraAction")
+    }
+    
     
     // MARK: Navigation
     @objc func backAction(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
     }
+    
+    // MARK: UIImagePicker
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[.originalImage] as? UIImage {
+            babyImageView.image = pickedImage
+            UserDefaultsUtil().savePicture(pickedImage)
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func pickAPicturePressed(_ sender: UIButton) {
+        print("pickAPicturePressed")
+        
+        let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+                self.openCamera()
+            }))
+            
+        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+                self.openGallary()
+            }))
+            
+        alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+            
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            alert.popoverPresentationController?.sourceView = babyImageView
+            alert.popoverPresentationController?.sourceRect = babyImageView.bounds
+            alert.popoverPresentationController?.permittedArrowDirections = .up
+       default:
+            break
+       }
+        
+       present(alert, animated: true, completion: nil)
+    }
+    
+     func openCamera() {
+        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera)) {
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            imagePicker.allowsEditing = true
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        else {
+            let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+       }
+   }
+
+    func openGallary() {
+        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+        imagePicker.allowsEditing = true
+        self.present(imagePicker, animated: true, completion: nil)
+   }
 
 }
 
