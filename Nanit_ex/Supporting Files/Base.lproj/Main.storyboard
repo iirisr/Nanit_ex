@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="25C-ZD-ldg">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--DetailsVC-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="DetailsVC" customModule="Nanit_ex" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Birthday App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="orQ-Li-da2" userLabel="AppTitleLabel">
+                                <rect key="frame" x="62" y="144" width="290" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" name="AccentColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="center" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="nIs-MU-J4L" userLabel="NameTextField">
+                                <rect key="frame" x="103.5" y="198" width="207" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8f-bg-K3L">
+                                <rect key="frame" x="47" y="252" width="320" height="216"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <date key="date" timeIntervalSinceReferenceDate="599522400.38135302">
+                                    <!--2019-12-31 22:00:00 +0000-->
+                                </date>
+                            </datePicker>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qvp-zM-59p" userLabel="PictureImageView">
+                                <rect key="frame" x="103.5" y="488" width="207" height="207"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Qvp-zM-59p" secondAttribute="height" id="qfh-YU-zPJ"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKI-eI-0YI" userLabel="PlusButton">
+                                <rect key="frame" x="103.5" y="488" width="207" height="207"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="+">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="pickAPicturePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GZm-Xb-QcW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="nQa-Oq-mfm" userLabel="ShowBirthdayScreenButton">
+                                <rect key="frame" x="103.5" y="735" width="207" height="34"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Show birthday screen">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="showBirthdayScreenPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6md-OH-5ss"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="i8f-bg-K3L" firstAttribute="top" secondItem="nIs-MU-J4L" secondAttribute="bottom" constant="20" id="03V-Vs-Mpw"/>
+                            <constraint firstItem="gKI-eI-0YI" firstAttribute="bottom" secondItem="Qvp-zM-59p" secondAttribute="bottom" id="2VT-7R-kEq"/>
+                            <constraint firstItem="nQa-Oq-mfm" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="3u3-D5-H5P"/>
+                            <constraint firstItem="orQ-Li-da2" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="7:10" id="6WR-xg-D1L"/>
+                            <constraint firstItem="orQ-Li-da2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="56" id="7t4-Iv-zp4" userLabel="AppTitleLabel.top = Safe Area.top + 30"/>
+                            <constraint firstItem="i8f-bg-K3L" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Bql-J7-C5w"/>
+                            <constraint firstItem="nIs-MU-J4L" firstAttribute="top" secondItem="orQ-Li-da2" secondAttribute="bottom" constant="30" id="Hnw-Rf-U7h"/>
+                            <constraint firstItem="nIs-MU-J4L" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="SnZ-cY-CrE"/>
+                            <constraint firstItem="Qvp-zM-59p" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="aSH-pJ-ARY"/>
+                            <constraint firstItem="orQ-Li-da2" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="brZ-Pn-DCu"/>
+                            <constraint firstItem="Qvp-zM-59p" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="1:2" id="cDv-PT-NL6"/>
+                            <constraint firstItem="nIs-MU-J4L" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="1:2" id="ded-OZ-Chb"/>
+                            <constraint firstItem="nQa-Oq-mfm" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="1:2" id="eEb-EH-xGa"/>
+                            <constraint firstItem="gKI-eI-0YI" firstAttribute="leading" secondItem="Qvp-zM-59p" secondAttribute="leading" id="fhS-IH-S4U"/>
+                            <constraint firstItem="gKI-eI-0YI" firstAttribute="trailing" secondItem="Qvp-zM-59p" secondAttribute="trailing" id="h4W-nv-GJ0"/>
+                            <constraint firstItem="Qvp-zM-59p" firstAttribute="top" secondItem="i8f-bg-K3L" secondAttribute="bottom" constant="20" id="r6x-98-ogE"/>
+                            <constraint firstItem="gKI-eI-0YI" firstAttribute="top" secondItem="Qvp-zM-59p" secondAttribute="top" id="vZw-gE-KSW"/>
+                            <constraint firstItem="nQa-Oq-mfm" firstAttribute="top" secondItem="Qvp-zM-59p" secondAttribute="bottom" constant="40" id="vas-pa-cNQ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="wfI-Hl-oOF"/>
+                    <connections>
+                        <outlet property="appTitleLabel" destination="orQ-Li-da2" id="Bfj-kO-rQJ"/>
+                        <outlet property="birthdayDatePicker" destination="i8f-bg-K3L" id="E7E-JA-nks"/>
+                        <outlet property="nameTextField" destination="nIs-MU-J4L" id="s7u-QG-IhV"/>
+                        <outlet property="pictureImageView" destination="Qvp-zM-59p" id="Qkh-Pe-mFP"/>
+                        <outlet property="showBirthdayButton" destination="nQa-Oq-mfm" id="cuR-Zt-RFM"/>
+                        <segue destination="OAS-Z0-hRp" kind="show" identifier="show_birthday_screen" id="I3f-2m-w14"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="805.79710144927537" y="88.392857142857139"/>
+        </scene>
+        <!--Show BirthdayVC-->
+        <scene sceneID="jgk-bd-Qrh">
+            <objects>
+                <viewController id="OAS-Z0-hRp" customClass="ShowBirthdayVC" customModule="Nanit_ex" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EsB-zZ-N4o">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bI4-sp-gFj" userLabel="BackButton">
+                                <rect key="frame" x="192" y="243" width="26" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="arrowBackBlue"/>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nbj-Gm-8nM" userLabel="BackgroundImageView">
+                                <rect key="frame" x="-12" y="100" width="159" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3CI-Hn-Luh" userLabel="NameView">
+                                <rect key="frame" x="286" y="88" width="127" height="78"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vre-2A-maw" userLabel="NameLabel">
+                                        <rect key="frame" x="38" y="26" width="50" height="26"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <color key="textColor" name="darkGreyBlueColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M5c-R5-3bV" userLabel="AgeImageView">
+                                        <rect key="frame" x="-9" y="-3" width="144" height="84"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="leftSwirls" translatesAutoresizingMaskIntoConstraints="NO" id="y8T-Yj-RPA" userLabel="LeftSwirls">
+                                        <rect key="frame" x="13" y="9" width="100" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rightSwirls" translatesAutoresizingMaskIntoConstraints="NO" id="oqI-m4-vXK" userLabel="RightSwirls">
+                                        <rect key="frame" x="18" y="10" width="91" height="58"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="brb-Is-Fme" userLabel="AgeLabel">
+                                        <rect key="frame" x="38" y="26" width="50" height="26"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <color key="textColor" name="darkGreyBlueColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aM6-mN-QBg" userLabel="BabyView">
+                                <rect key="frame" x="258" y="195" width="127" height="78"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="okE-qy-w3K" userLabel="BabyImageView">
+                                        <rect key="frame" x="15" y="4" width="96" height="70"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iD3-LY-Z8G" userLabel="BabyPlaceHolderImageView">
+                                        <rect key="frame" x="14" y="2" width="99" height="73"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nanitLogo" translatesAutoresizingMaskIntoConstraints="NO" id="asF-7v-gMK" userLabel="NanitLogoImageView">
+                                        <rect key="frame" x="13" y="0.0" width="101" height="78"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="nqt-Pz-4Jw" userLabel="ShareButton">
+                                <rect key="frame" x="208" y="379" width="206" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Share the news" image="shareWhiteSmall"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8OJ-aR-tuM"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="aIf-Cg-ju8"/>
+                    <connections>
+                        <outlet property="ageImageView" destination="M5c-R5-3bV" id="HZ5-fb-UXe"/>
+                        <outlet property="ageLabel" destination="brb-Is-Fme" id="FRI-b4-wmW"/>
+                        <outlet property="babyImageView" destination="okE-qy-w3K" id="Qzo-86-5cd"/>
+                        <outlet property="babyPlaceHolderImageView" destination="iD3-LY-Z8G" id="PrT-Ot-vbL"/>
+                        <outlet property="babyView" destination="aM6-mN-QBg" id="Skt-YG-iLa"/>
+                        <outlet property="backButton" destination="bI4-sp-gFj" id="4LV-Js-rmZ"/>
+                        <outlet property="backgroundImageView" destination="nbj-Gm-8nM" id="u3T-gH-gYA"/>
+                        <outlet property="leftSwirls" destination="y8T-Yj-RPA" id="KDh-8P-1AX"/>
+                        <outlet property="nameLabel" destination="vre-2A-maw" id="y3o-Se-OOR"/>
+                        <outlet property="nameView" destination="3CI-Hn-Luh" id="Kts-CC-FIs"/>
+                        <outlet property="nanitLogoImageView" destination="asF-7v-gMK" id="brP-p7-4yw"/>
+                        <outlet property="rightSwirls" destination="oqI-m4-vXK" id="8ag-nq-DrW"/>
+                        <outlet property="shareButton" destination="nqt-Pz-4Jw" id="EPT-vB-22m"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p7e-G0-5Xw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1692.753623188406" y="87.723214285714278"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="bgH-xZ-TnI">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="25C-ZD-ldg" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="t4S-Tt-KmD">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="uJn-EZ-Csw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6ge-Y9-BeO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-104.34782608695653" y="88.392857142857139"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="arrowBackBlue" width="26" height="21"/>
+        <image name="leftSwirls" width="52" height="46"/>
+        <image name="nanitLogo" width="57" height="20"/>
+        <image name="rightSwirls" width="52" height="46"/>
+        <image name="shareWhiteSmall" width="31" height="35"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="darkGreyBlueColor">
+            <color red="0.2235293984413147" green="0.27058824896812439" blue="0.38431376218795776" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

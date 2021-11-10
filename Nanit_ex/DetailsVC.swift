@@ -17,6 +17,8 @@ class DetailsVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     @IBOutlet weak var showBirthdayButton: UIButton!
     
     //MARK: Properties
+    private let showBirthdayIdentifier = "show_birthday_screen"
+    
     private var imagePicker = UIImagePickerController()
     
     private var isShowButtonOn: Bool {
@@ -28,6 +30,9 @@ class DetailsVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         super.viewDidLoad()
         
         birthdayDatePicker.datePickerMode = .date
+        var minimumDate = Calendar.current.date(byAdding: .year, value: -13, to: Date())
+        minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: minimumDate!)
+        birthdayDatePicker.minimumDate = minimumDate
         birthdayDatePicker.maximumDate = Date()
         birthdayDatePicker.addTarget(self, action: #selector(birthdateChanged(_:)), for: .valueChanged)
         
@@ -61,6 +66,7 @@ class DetailsVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     
     @IBAction func showBirthdayScreenPressed(_ sender: UIButton) {
         print("showBirthdayScreenPressed")
+        performSegue(withIdentifier: showBirthdayIdentifier, sender: self)
     }
     
     private func setShowBirthdayButtonState() {
@@ -72,22 +78,36 @@ class DetailsVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
 
     // MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if let vc = segue.destination as? ShowBirthdayVC {
+            print("Prepare for segue")
+            vc.name = nameTextField.text
+            vc.birthDate = birthdayDatePicker.date
+            vc.picture = pictureImageView.image
+        }
     }
 
     // MARK: UITextField
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print("textFieldShouldReturn")
-        textField.resignFirstResponder()
-        if let name = textField.text {
-            if !name.isEmpty {
-                UserDefaultsUtil().saveName(name)
-            }
-        }
+        closeNameTextField()
         return true;
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         print("textFieldDidEndEditing")
+        closeNameTextField()
+    }
+    
+    private func closeNameTextField() {
+        print("nameTextFieldIsNotInFocus")
+        nameTextField.resignFirstResponder()
+        if let name = nameTextField.text {
+            if !name.isEmpty {
+                UserDefaultsUtil().saveName(name)
+            }
+        }
         setShowBirthdayButtonState()
     }
     
@@ -95,7 +115,7 @@ class DetailsVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             pictureImageView.image = pickedImage
-            pictureImageView.contentMode = .scaleToFill
+            pictureImageView.contentMode = .scaleAspectFit
             UserDefaultsUtil().savePicture(pickedImage)
         }
         picker.dismiss(animated: true, completion: nil)
@@ -103,6 +123,8 @@ class DetailsVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     
     @IBAction func pickAPicturePressed(_ sender: UIButton) {
         print("pickAPicturePressed")
+        closeNameTextField()
+        
         let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
                 self.openCamera()

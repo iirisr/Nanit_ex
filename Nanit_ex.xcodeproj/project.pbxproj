@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		034CE7A7273A69DD00B5E073 /* ShowBirthdayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034CE7A6273A69DD00B5E073 /* ShowBirthdayVC.swift */; };
+		0368741D273AEB090036C02B /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0368741C273AEB090036C02B /* UIColor+Additions.swift */; };
 		036EB9A62737FF6E00CA03FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036EB9A52737FF6E00CA03FE /* AppDelegate.swift */; };
 		036EB9A82737FF6E00CA03FE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036EB9A72737FF6E00CA03FE /* SceneDelegate.swift */; };
 		036EB9AD2737FF6E00CA03FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 036EB9AB2737FF6E00CA03FE /* Main.storyboard */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		034CE7A6273A69DD00B5E073 /* ShowBirthdayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowBirthdayVC.swift; sourceTree = "<group>"; };
+		0368741C273AEB090036C02B /* UIColor+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Additions.swift"; sourceTree = "<group>"; };
 		036EB9A22737FF6E00CA03FE /* Nanit_ex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nanit_ex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		036EB9A52737FF6E00CA03FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		036EB9A72737FF6E00CA03FE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +43,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0368741E273BBAD30036C02B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0368741C273AEB090036C02B /* UIColor+Additions.swift */,
+				036EB9A52737FF6E00CA03FE /* AppDelegate.swift */,
+				036EB9A72737FF6E00CA03FE /* SceneDelegate.swift */,
+				036EB9AB2737FF6E00CA03FE /* Main.storyboard */,
+				036EB9AE2737FF7100CA03FE /* Assets.xcassets */,
+				036EB9B02737FF7100CA03FE /* LaunchScreen.storyboard */,
+				036EB9B32737FF7100CA03FE /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		036EB9992737FF6E00CA03FE = {
 			isa = PBXGroup;
 			children = (
@@ -58,14 +76,10 @@
 		036EB9A42737FF6E00CA03FE /* Nanit_ex */ = {
 			isa = PBXGroup;
 			children = (
-				036EB9A52737FF6E00CA03FE /* AppDelegate.swift */,
-				036EB9A72737FF6E00CA03FE /* SceneDelegate.swift */,
-				036EB9AB2737FF6E00CA03FE /* Main.storyboard */,
-				036EB9AE2737FF7100CA03FE /* Assets.xcassets */,
-				036EB9B02737FF7100CA03FE /* LaunchScreen.storyboard */,
-				036EB9B32737FF7100CA03FE /* Info.plist */,
-				036EB9B9273800DB00CA03FE /* DetailsVC.swift */,
+				0368741E273BBAD30036C02B /* Supporting Files */,
 				036EB9BB2738079F00CA03FE /* UserDefaultsUtil.swift */,
+				036EB9B9273800DB00CA03FE /* DetailsVC.swift */,
+				034CE7A6273A69DD00B5E073 /* ShowBirthdayVC.swift */,
 			);
 			path = Nanit_ex;
 			sourceTree = "<group>";
@@ -142,8 +156,10 @@
 			files = (
 				036EB9BC2738079F00CA03FE /* UserDefaultsUtil.swift in Sources */,
 				036EB9BA273800DB00CA03FE /* DetailsVC.swift in Sources */,
+				034CE7A7273A69DD00B5E073 /* ShowBirthdayVC.swift in Sources */,
 				036EB9A62737FF6E00CA03FE /* AppDelegate.swift in Sources */,
 				036EB9A82737FF6E00CA03FE /* SceneDelegate.swift in Sources */,
+				0368741D273AEB090036C02B /* UIColor+Additions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,7 +308,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 238EA7P2TP;
-				INFOPLIST_FILE = Nanit_ex/Info.plist;
+				INFOPLIST_FILE = "Nanit_ex/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -311,7 +327,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 238EA7P2TP;
-				INFOPLIST_FILE = Nanit_ex/Info.plist;
+				INFOPLIST_FILE = "Nanit_ex/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
