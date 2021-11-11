@@ -32,6 +32,8 @@ class ShowBirthdayVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     private var imagePicker = UIImagePickerController()
     private let cameraButton = UIButton()
+    private let cameraContainingView = UIView()
+    private let upperView = UIView()
     
     private var mainTheme = MainTheme.Elephant
     
@@ -55,6 +57,12 @@ class ShowBirthdayVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         MainTheme.Pelican : UIImage(named: "defaultPlaceHolderBlue")!,
     ]
     
+    private let babyPlaceHolderColors: [MainTheme : UIColor]  = [
+        MainTheme.Fox : .teal60,
+        MainTheme.Elephant : .goldenYellow56,
+        MainTheme.Pelican : .lightTeal,
+    ]
+    
     private let cameraImages: [MainTheme : UIImage]  = [
         MainTheme.Fox : UIImage(named: "cameraIconGreen")!,
         MainTheme.Elephant : UIImage(named: "cameraIconYellow")!,
@@ -74,7 +82,7 @@ class ShowBirthdayVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     let nameViewHeight: CGFloat = 190
     let nameViewWidth: CGFloat = 226
-    let nameViewTop: CGFloat = 40
+    let nameViewTop: CGFloat = 11
     let nameViewLeading: CGFloat = 75
     let nameViewTrailing: CGFloat = 74
     
@@ -95,18 +103,17 @@ class ShowBirthdayVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     let ageLabeltop: CGFloat = 14
     let ageLabelBottom: CGFloat = 0
     
-    let babyViewTop: CGFloat = 20
-    let babyViewHeight: CGFloat = 324
+    let babyViewTop: CGFloat = 0//20
+    let babyViewHeight: CGFloat = 324+87
     let babyViewOffset: CGFloat = 50
     let babyViewBottom: CGFloat = 88
     
     let babyPlaceHolderImageViewOffset: CGFloat = 0
     let babyPlaceHolderHeight: CGFloat = 225
     
-    let babyImageViewOffset: CGFloat = 6
-    let babyImageViewHeight: CGFloat = 213 // 225 - babyImageViewOffset*2
+    let babyImageViewOffset: CGFloat = 4
+    //let babyImageViewHeight: CGFloat = 213 // 225 - babyImageViewOffset*2
     
-    let shareButtonRadius: CGFloat = 12
     let shareButtonOffset: CGFloat = 17
     let shareButtonBottom: CGFloat = 0
     let shareButtonHeight: CGFloat = 42
@@ -114,6 +121,7 @@ class ShowBirthdayVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     let nanitBottom: CGFloat = 20
     let nanitTop: CGFloat = 15
+    let nanitHeight: CGFloat = 20
     
     let cameraButtonWidth: CGFloat = 36
     
@@ -135,16 +143,19 @@ class ShowBirthdayVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         mainTheme = MainTheme(rawValue: Int.random(in: 0..<3)) ?? MainTheme.Elephant
         view.backgroundColor = backgroundColors[mainTheme]
         
-        babyImageView.addSubview(cameraButton)
+        cameraContainingView.backgroundColor = .none
+        babyView.addSubview(cameraContainingView)
+        cameraContainingView.addSubview(cameraButton)
         
         view.sendSubviewToBack(backgroundImageView)
         nameView.bringSubviewToFront(nameLabel)
         nameView.bringSubviewToFront(ageImageView)
         babyView.sendSubviewToBack(babyPlaceHolderImageView)
-        babyView.bringSubviewToFront(babyImageView)
+        babyView.bringSubviewToFront(cameraContainingView)
         babyImageView.bringSubviewToFront(cameraButton)
         
         backButton.addTarget(self, action: #selector(self.backAction), for: .touchUpInside)
+        shareButton.addTarget(self, action: #selector(self.shareAction), for: .touchUpInside)
         cameraButton.addTarget(self, action: #selector(self.pickAPicturePressed), for: .touchUpInside)
         
         nameLabel.text = "TODAY " + name! + " IS"
@@ -157,16 +168,21 @@ class ShowBirthdayVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         shareButton.backgroundColor = .blush
         
         backgroundImageView.image = backgroundImages[mainTheme]
-        babyImageView.contentMode = .scaleAspectFill
+        babyImageView.contentMode = .scaleToFill
         babyImageView.image = picture
-        babyPlaceHolderImageView.image = babyPlaceHolderImages[mainTheme]
+        //babyPlaceHolderImageView.image = babyPlaceHolderImages[mainTheme]
+        babyPlaceHolderImageView.backgroundColor = babyPlaceHolderColors[mainTheme]
         cameraButton.setImage(cameraImages[mainTheme], for: .normal)
         cameraButton.isUserInteractionEnabled = true
-        view.clipsToBounds = true
-        babyView.clipsToBounds = true
-        babyImageView.clipsToBounds = true
-        cameraButton.clipsToBounds = true
-        babyPlaceHolderImageView.clipsToBounds = true
+        
+        upperView.backgroundColor = .none
+        view.addSubview(upperView)
+        //view.clipsToBounds = true
+        //babyView.clipsToBounds = true
+        //babyImageView.clipsToBounds = false
+        cameraContainingView.clipsToBounds = false
+        //cameraButton.clipsToBounds = false
+        //babyPlaceHolderImageView.clipsToBounds = true
         
         if let date = birthDate,
            let (ageNumber, ageDescription) = calculateAge(for: date) {
@@ -174,12 +190,19 @@ class ShowBirthdayVC: UIViewController, UIImagePickerControllerDelegate, UINavig
             ageImageView.image = ageImages[ageNumber]
             ageLabel.text = ageDescription
         }
-
+    }
+    
+    override func viewWillLayoutSubviews() {
+        babyImageView.layer.cornerRadius = (babyImageView.frame.size.width)/2
+        babyImageView.clipsToBounds = true
+        babyPlaceHolderImageView.layer.cornerRadius = (babyPlaceHolderImageView.frame.size.height)/2
+        babyPlaceHolderImageView.clipsToBounds = true
+        shareButton.layer.cornerRadius = calcSize(shareButtonHeight/2, isWidth: false)
+        shareButton.clipsToBounds = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        print("calcSize(babyImageViewHeight, isWidth: true)=\(calcSize(babyImageViewHeight, isWidth: false))")
         
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         setConstraints()
@@ -193,28 +216,87 @@ class ShowBirthdayVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     //MARK: Layout
     private func calcSize(_ input: CGFloat, isWidth: Bool) -> CGFloat {
-        let widthRatio = 375/611*view.frame.size.height/view.frame.size.width
-        return isWidth ? input * widthRatio : input / widthRatio
+        let realSize = isWidth ? view.frame.size.width : view.frame.size.height
+        let scatchSize: CGFloat = isWidth ? 375 : 611
+        return input*realSize/scatchSize
     }
 
     private func setConstraints() {
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: calcSize(backButtonLeading, isWidth: true)).isActive = true
-        backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: calcSize(backButtonTop, isWidth: false)).isActive = true
+        backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: calcSize(backButtonTop, isWidth: false)).isActive = true
         backButton.widthAnchor.constraint(equalToConstant: calcSize(backButtonWidth, isWidth: true)).isActive = true
         backButton.heightAnchor.constraint(equalToConstant: calcSize(backButtonHeight, isWidth: false)).isActive = true
         
         backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: calcSize(backgroundImageTop, isWidth: false)).isActive = true
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        backgroundImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
+        
+        babyView.translatesAutoresizingMaskIntoConstraints = false
+        babyView.centerXAnchor.constraint(greaterThanOrEqualTo: view.centerXAnchor).isActive = true
+        babyView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: calcSize(-babyViewOffset*2, isWidth: true)).isActive = true
+        babyView.widthAnchor.constraint(equalToConstant: calcSize(babyViewHeight, isWidth: false)).isActive = true
+        babyView.topAnchor.constraint(equalTo: nameView.bottomAnchor, constant: calcSize(babyViewTop, isWidth: false)).isActive = true
+        babyView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: calcSize(-babyViewBottom, isWidth: false)).isActive = true
+        
+        shareButton.translatesAutoresizingMaskIntoConstraints = false
+        shareButton.centerXAnchor.constraint(equalTo: babyView.centerXAnchor).isActive = true
+        shareButton.widthAnchor.constraint(equalToConstant: calcSize(shareButtonWidth, isWidth: true)).isActive = true
+        shareButton.heightAnchor.constraint(equalToConstant: calcSize(shareButtonHeight, isWidth: false)).isActive = true
+        shareButton.bottomAnchor.constraint(equalTo: babyView.bottomAnchor).isActive = true
+        
+        nanitLogoImageView.translatesAutoresizingMaskIntoConstraints = false
+        nanitLogoImageView.centerXAnchor.constraint(equalTo: babyView.centerXAnchor).isActive = true
+        nanitLogoImageView.bottomAnchor.constraint(equalTo: shareButton.topAnchor, constant: calcSize(-nanitBottom, isWidth: false)).isActive = true
+        nanitLogoImageView.heightAnchor.constraint(equalToConstant: calcSize(nanitHeight, isWidth: false)).isActive = true
+        
+        babyPlaceHolderImageView.translatesAutoresizingMaskIntoConstraints = false
+        babyPlaceHolderImageView.centerXAnchor.constraint(equalTo: babyView.centerXAnchor).isActive = true
+        babyPlaceHolderImageView.topAnchor.constraint(equalTo: babyView.topAnchor).isActive = true
+        babyPlaceHolderImageView.heightAnchor.constraint(lessThanOrEqualTo: babyView.widthAnchor).isActive = true
+        babyPlaceHolderImageView.widthAnchor.constraint(equalTo: babyPlaceHolderImageView.heightAnchor).isActive = true
+        babyPlaceHolderImageView.topAnchor.constraint(equalTo: babyView.topAnchor).isActive = true
+        babyPlaceHolderImageView.bottomAnchor.constraint(equalTo: nanitLogoImageView.topAnchor, constant: calcSize(-nanitTop, isWidth: false)).isActive = true
+        
+        let babyImageOffset = calcSize(babyImageViewOffset, isWidth: true)
+        babyImageView.translatesAutoresizingMaskIntoConstraints = false
+        babyImageView.topAnchor.constraint(equalTo: babyPlaceHolderImageView.topAnchor, constant: babyImageOffset).isActive = true
+        babyImageView.leadingAnchor.constraint(equalTo: babyPlaceHolderImageView.leadingAnchor, constant: babyImageOffset).isActive = true
+        babyImageView.widthAnchor.constraint(lessThanOrEqualTo: babyPlaceHolderImageView.widthAnchor, constant: -babyImageOffset*2).isActive = true
+        babyImageView.heightAnchor.constraint(equalTo: babyPlaceHolderImageView.heightAnchor, constant: -babyImageOffset*2).isActive = true
+        babyImageView.centerXAnchor.constraint(equalTo: babyPlaceHolderImageView.centerXAnchor).isActive = true
+        
+        cameraContainingView.translatesAutoresizingMaskIntoConstraints = false
+        cameraContainingView.leadingAnchor.constraint(equalTo: babyImageView.leadingAnchor).isActive = true
+        cameraContainingView.trailingAnchor.constraint(equalTo: babyImageView.trailingAnchor).isActive = true
+        cameraContainingView.topAnchor.constraint(equalTo: babyImageView.topAnchor).isActive = true
+        cameraContainingView.bottomAnchor.constraint(equalTo: babyImageView.bottomAnchor).isActive = true
+        
+        cameraButton.translatesAutoresizingMaskIntoConstraints = false
+        cameraButton.widthAnchor.constraint(equalToConstant: calcSize(cameraButtonWidth, isWidth: true)).isActive = true
+        cameraButton.heightAnchor.constraint(equalToConstant: calcSize(cameraButtonWidth, isWidth: true)).isActive = true
+        let (hMult, vMult) = computeMultipliers(angle: 45)
+        NSLayoutConstraint(item: cameraButton, attribute: .centerX, relatedBy: .equal, toItem: babyImageView!, attribute: .trailing, multiplier: hMult, constant: 0).isActive = true
+        NSLayoutConstraint(item: cameraButton, attribute: .centerY, relatedBy: .equal, toItem: babyImageView!, attribute: .bottom, multiplier: vMult, constant: 0).isActive = true
+        
+        babyImageView.layoutIfNeeded()
+        cameraContainingView.layoutIfNeeded()
+        cameraButton.layoutIfNeeded()
+        
+        upperView.translatesAutoresizingMaskIntoConstraints = false
+        upperView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        upperView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        upperView.topAnchor.constraint(equalTo: backButton.bottomAnchor).isActive = true
+        upperView.bottomAnchor.constraint(equalTo: babyView.topAnchor).isActive = true
+        
         nameView.translatesAutoresizingMaskIntoConstraints = false
-        nameView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: calcSize(nameViewLeading, isWidth: true)).isActive = true
-        nameView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: calcSize(-nameViewTrailing, isWidth: true)).isActive = true
-        nameView.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: calcSize(nameViewTop, isWidth: false)).isActive = true
+        nameView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: calcSize(nameViewLeading, isWidth: true)).isActive = true
+        nameView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: calcSize(-nameViewTrailing, isWidth: true)).isActive = true
         nameView.heightAnchor.constraint(equalToConstant: calcSize(nameViewHeight, isWidth: false)).isActive = true
+        nameView.centerYAnchor.constraint(equalTo: upperView.centerYAnchor).isActive = true
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.leadingAnchor.constraint(equalTo: nameView.leadingAnchor, constant: calcSize(nameLeading, isWidth: true)).isActive = true
@@ -236,54 +318,14 @@ class ShowBirthdayVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         rightSwirls.translatesAutoresizingMaskIntoConstraints = false
         rightSwirls.topAnchor.constraint(equalTo: leftSwirls.topAnchor).isActive = true
-        rightSwirls.trailingAnchor.constraint(greaterThanOrEqualTo: nameView.trailingAnchor).isActive = true
+        rightSwirls.trailingAnchor.constraint(lessThanOrEqualTo: nameView.trailingAnchor).isActive = true
         rightSwirls.leadingAnchor.constraint(equalTo: ageImageView.trailingAnchor, constant: calcSize(swirlsOffset, isWidth: true)).isActive = true
         rightSwirls.heightAnchor.constraint(equalToConstant: calcSize(swirlsHeight, isWidth: false)).isActive = true
         
         ageLabel.translatesAutoresizingMaskIntoConstraints = false
         ageLabel.topAnchor.constraint(equalTo: ageImageView.bottomAnchor, constant: calcSize(ageLabeltop, isWidth: false)).isActive = true
         ageLabel.centerXAnchor.constraint(equalTo: nameView.centerXAnchor).isActive = true
-        
-        babyView.translatesAutoresizingMaskIntoConstraints = false
-        babyView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: calcSize(babyViewOffset, isWidth: true)).isActive = true
-        babyView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: calcSize(-babyViewOffset, isWidth: true)).isActive = true
-        babyView.topAnchor.constraint(greaterThanOrEqualTo: nameView.bottomAnchor, constant: calcSize(babyViewTop, isWidth: false)).isActive = true
-        babyView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: calcSize(-babyViewBottom, isWidth: false)).isActive = true
-        
-        babyPlaceHolderImageView.translatesAutoresizingMaskIntoConstraints = false
-        babyPlaceHolderImageView.centerXAnchor.constraint(equalTo: babyView.centerXAnchor).isActive = true
-        babyPlaceHolderImageView.topAnchor.constraint(equalTo: babyView.topAnchor).isActive = true
-        babyPlaceHolderImageView.heightAnchor.constraint(equalToConstant: calcSize(babyPlaceHolderHeight, isWidth: false)).isActive = true
-        babyPlaceHolderImageView.widthAnchor.constraint(equalToConstant: calcSize(babyPlaceHolderHeight, isWidth: false)).isActive = true
-        
-        shareButton.translatesAutoresizingMaskIntoConstraints = false
-        shareButton.centerXAnchor.constraint(equalTo: babyView.centerXAnchor).isActive = true
-        shareButton.widthAnchor.constraint(equalToConstant: calcSize(shareButtonWidth, isWidth: true)).isActive = true
-        shareButton.heightAnchor.constraint(equalToConstant: calcSize(shareButtonHeight, isWidth: false)).isActive = true
-        shareButton.bottomAnchor.constraint(equalTo: babyView.bottomAnchor).isActive = true
-        
-        nanitLogoImageView.translatesAutoresizingMaskIntoConstraints = false
-        nanitLogoImageView.centerXAnchor.constraint(equalTo: babyView.centerXAnchor).isActive = true
-        nanitLogoImageView.bottomAnchor.constraint(equalTo: shareButton.topAnchor, constant: calcSize(-nanitBottom, isWidth: false)).isActive = true
-        nanitLogoImageView.topAnchor.constraint(equalTo: babyPlaceHolderImageView.bottomAnchor, constant: calcSize(nanitTop, isWidth: false)).isActive = true
-        
-        babyImageView.translatesAutoresizingMaskIntoConstraints = false
-        babyImageView.centerXAnchor.constraint(equalTo: babyPlaceHolderImageView.centerXAnchor).isActive = true
-        babyImageView.topAnchor.constraint(equalTo: babyView.topAnchor, constant: calcSize(babyImageViewOffset, isWidth: true)).isActive = true
-        babyImageView.widthAnchor.constraint(equalToConstant: calcSize(babyImageViewHeight, isWidth: false)).isActive = true
-        babyImageView.heightAnchor.constraint(equalToConstant: calcSize(babyImageViewHeight, isWidth: false)).isActive = true
-        
-        cameraButton.translatesAutoresizingMaskIntoConstraints = false
-        cameraButton.widthAnchor.constraint(equalToConstant: calcSize(cameraButtonWidth, isWidth: false)).isActive = true
-        cameraButton.heightAnchor.constraint(equalToConstant: calcSize(cameraButtonWidth, isWidth: false)).isActive = true
-        let (hMult, vMult) = computeMultipliers(angle: 45)
-        NSLayoutConstraint(item: cameraButton, attribute: .centerX, relatedBy: .equal, toItem: babyImageView!, attribute: .trailing, multiplier: hMult, constant: 0).isActive = true
-        NSLayoutConstraint(item: cameraButton, attribute: .centerY, relatedBy: .equal, toItem: babyImageView!, attribute: .bottom, multiplier: vMult, constant: 0).isActive = true
-        
-        shareButton.layer.cornerRadius = calcSize(shareButtonRadius, isWidth: true)
-        babyImageView.layer.cornerRadius = calcSize(babyImageViewHeight, isWidth: false)/2
-        babyImageView.layoutIfNeeded()
-        cameraButton.layoutIfNeeded()
+
     }
     
     private func computeMultipliers(angle: CGFloat) -> (CGFloat, CGFloat) {
@@ -319,10 +361,15 @@ class ShowBirthdayVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         return false
     }
     
-    @objc func cameraAction(_ sender: UIButton) {
-        print("cameraAction")
+    @objc func shareAction(_ sender: UIButton) {
+        print("Share the news")
+        
+        let text = "Share the news: " + nameLabel.text! + " " +  String(babyAgeNumber!) + " " + ageLabel.text!
+        let textShare = [ text ]
+        let activityViewController = UIActivityViewController(activityItems: textShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
     }
-    
     
     // MARK: Navigation
     @objc func backAction(_ sender: UIBarButtonItem) {
@@ -364,7 +411,7 @@ class ShowBirthdayVC: UIViewController, UIImagePickerControllerDelegate, UINavig
        present(alert, animated: true, completion: nil)
     }
     
-     func openCamera() {
+    private func openCamera() {
         if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera)) {
             imagePicker.sourceType = UIImagePickerController.SourceType.camera
             imagePicker.allowsEditing = true
@@ -377,7 +424,7 @@ class ShowBirthdayVC: UIViewController, UIImagePickerControllerDelegate, UINavig
        }
    }
 
-    func openGallary() {
+   private func openGallary() {
         imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
         imagePicker.allowsEditing = true
         self.present(imagePicker, animated: true, completion: nil)

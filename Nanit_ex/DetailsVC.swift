@@ -148,7 +148,7 @@ class DetailsVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
        present(alert, animated: true, completion: nil)
     }
     
-     func openCamera() {
+    private func openCamera() {
         if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera)) {
             imagePicker.sourceType = UIImagePickerController.SourceType.camera
             imagePicker.allowsEditing = true
@@ -161,7 +161,7 @@ class DetailsVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
        }
    }
 
-    func openGallary() {
+    private func openGallary() {
         imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
         imagePicker.allowsEditing = true
         self.present(imagePicker, animated: true, completion: nil)
